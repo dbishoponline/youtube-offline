@@ -10,9 +10,10 @@ Youtube-offline is a free mobile app which downloads youtube videos to make them
 
 ## How to Use?
 
-Clone Repo
+Clone Repo. These directions assume you have a valid path `~/dev/apps/`.
 
 ```sh
+$ cd ~/dev/apps/
 $ git clone https://github.com/dbishoponline/youtube-offline.git youtube_offline;
 $ cd youtube_offline;
 ```
