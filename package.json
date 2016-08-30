@@ -1,0 +1,16 @@
+{
+  "name": "youtube_offline",
+  "version": "1.0.0",
+  "description": "automatically choose youtube videos to watch offline at anytime",
+  "main": "index.js",
+  "bin": {
+    "bishop": "bin/youtube_offline"
+  },
+  "preferGlobal": true,
+  "scripts": {
+    download: "youtube-dl https://www.youtube.com/watch?v=BKJniIkBSww"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

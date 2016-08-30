@@ -1,0 +1,91 @@
+#! /usr/bin/env node
+
+//
+// BISHOP CLI (COMMAND LINE INTERFACE)
+// A Command Line Interface (CLI) for executing common tasks (setup, deploy, docs)
+// for projects associated with Masterful, Inc. and Dylan Bishop Media, LLC
+//
+
+
+// GLOBAL TODOS
+// TODO: integrate Commander module (https://www.npmjs.com/package/commander)
+// TODO: integrate Request module (https://www.npmjs.com/package/request)
+// TODO: integrate Chalk module (https://www.npmjs.com/package/chalk)
+
+var tasks = {};
+
+// global tasks
+tasks.download   = require('../tasks/download');
+
+var CLI = (function() {
+  // PROPS (PRIVATE)
+  var docContent  = '',
+      userArgs    = null,
+      command     = null;
+
+  function _init(callback) {
+    // gets only user args
+    var userArgs = _getUserArgs();
+
+    // // Reads and displays help documentation
+    // // returns a Promise obj
+    // helper.readFile(path, 'utf8').then(function(res) {
+    //   // handle success
+    //   console.log('success', res);
+    // }, function(error){
+    //   // handle errors
+    //   console.log('error');
+    // });
+    //
+    // promise = readDocs(docPath);
+    //
+    // console.log('chicken', promise);
+    // displayDocs(docContent);
+
+    // execute task command
+    _exec(userArgs);
+  }
+
+  function _getUserArgs() {
+    return process.argv.slice(2);
+  }
+
+  function _exec(args) {
+
+    var taskObj = null,
+        task    = args[0] || null,
+        method  = args[1] || null,
+        targets  = [],
+        command = null;
+
+    if (task) {
+      command = tasks[task];
+
+      if (method) {
+        command = tasks[task][method];
+      }
+
+      if (args.length > 2) {
+        for (var i = 2; i < args.length; i++) {
+          targets.push(args[i]);
+        }
+        command(targets);
+      }
+      else {
+        command();
+      }
+    }
+    else {
+      log.notice('info', 'something whent wrong...')
+    }
+  }
+
+  return {
+    // public method to initialized the CLI
+    init: function() {
+      _init();
+    },
+  };
+})();
+
+CLI.init();
